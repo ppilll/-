@@ -1,0 +1,47 @@
+#include<stdio.h>
+void do_change(int*, int, int,int);
+void do_cut(int*, int, int);
+int main(void) {
+	int num[6] = { 3,5,62,7,8,1 };
+	do_cut(num,0, 5);
+	for (int i = 0; i < 6; i++)
+		printf("%d ", num[i]);
+	return 0;
+}
+void do_change(int* pr, int p, int q, int r) {
+	int n_1 = q - p + 1,
+		n_2 = r - q;
+	int L[10], R[10];
+	for (int i = 0; i < n_1; i++)
+		L[i] = pr[p + i];
+	for (int j = 0; j < n_2; j++)
+		R[j] = pr[q + 1 + j];
+    int i = 0,
+        j = 0,
+        k;
+    for (k = p; k <= r && i < n_1 && j < n_2; k++) {
+        if (L[i] < R[j]) {
+            pr[k] = L[i];
+            i++;
+        }
+        else {
+            pr[k] = R[j];
+            j++;
+        }
+
+    }
+    for (i; i < n_1; i++) {
+        pr[k++] = L[i];
+    }
+    for (j; j < n_2; j++) {
+        pr[k++] = R[j];
+    }
+}
+void do_cut(int* pr, int p, int r) {
+	if (p < r) {
+		int q = (p + r) / 2;
+     do_cut(pr, p, q);
+	 do_cut(pr, q+1, r);
+	 do_change(pr, p, q,  r);
+	}
+}
