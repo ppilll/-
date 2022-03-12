@@ -1,3 +1,4 @@
+//并归排序
 #include<stdio.h>
 void do_change(int*, int, int,int);
 void do_cut(int*, int, int);
